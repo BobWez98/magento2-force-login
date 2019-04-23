@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento 2.x.
+ *
+ * NOTICE OF LICENSE
+ *
+ * It is also available through the world-wide-web at this URL:
+ * https://hieunc09.github.io/
+ *
+ * @package    HieuNC_ForceLogin
+ * @author     HieuNC
+ * @copyright  Copyright (c) 2019
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch">
+        <observer name="check_login_force" instance="HieuNC\ForceLogin\Observer\CheckForce"/>
+    </event>
+</config>
