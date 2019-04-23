@@ -2,7 +2,7 @@
   "name": "hieunc/force-login",
   "description": "Magento 2 - Force Login Module",
   "require": {
-    "php": "~5.5.22|~5.6.0|7.0.2|7.0.4|~7.0.6|~7.1.0|~7.1.8"
+    "php": "~5.6.0|7.0.2|7.0.4|~7.0.6|~7.1.0|~7.1.8|~7.2.0"
   },
   "type": "magento2-module",
   "version": "1.0.0",

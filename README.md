@@ -3,7 +3,7 @@
 
 ## Downloading Module with Composer
 
-1. composer require hieunc/force-login
+1. composer require hieunc/force-login:dev-master
 
 ## Installing Module with Magento Command Line Tool
 
