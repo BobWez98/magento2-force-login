@@ -1,16 +1,17 @@
 # magento2-force-login
 #### Prevent access to the frontend of a website for unauthenticated (not logged in) users.
 
-## Install
+## Downloading Module with Composer
 
-1. Go to [Magento2 root folder]/app/code.
+1. composer require hieunc/force-login
 
-2. Copy HieuNC/ForceLogin folder to the previous path.
+## Installing Module with Magento Command Line Tool
 
-3. bin/magento setup:upgrade
+1. bin/magento module:enable HieuNC_ForceLogin
 
-4. bin/magento setup:di:compile
+2. bin/magento setup:upgrade
 
+3. bin/magento setup:di:compile
 
 ## Version
 
