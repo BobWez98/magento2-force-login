@@ -13,7 +13,6 @@
  * @copyright  Copyright (c) 2019
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="HieuNC_ForceLogin" setup_version="1.0.0" schema_version="1.0.8"/>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="HieuNC_ForceLogin" setup_version="1.0.0" schema_version="1.0.0"/>
 </config>
