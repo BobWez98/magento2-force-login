@@ -9,25 +9,19 @@
  *
  * @package    HieuNC_ForceLogin
  * @author     HieuNC
- * @copyright  Copyright (c) 2019
+ * @copyright  Copyright (c) 2019 HieuNC. All rights reserved.
  */
 
 namespace HieuNC\ForceLogin\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 
-class CheckForce implements ObserverInterface
+/**
+ * Class CheckLoginPersistentObserver
+ * @package HieuNC\ForceLogin\Observer
+ */
+class CheckLoginPersistentObserver implements ObserverInterface
 {
-    /**
-     * @var \Magento\Customer\Model\Session
-     */
-    protected $_customerSession;
-
-    /**
-     * @var \Magento\Backend\Model\Auth\Session
-     */
-    protected $_adminSession;
-
     /**
      * @var \Magento\Framework\Message\ManagerInterface
      */
@@ -44,26 +38,40 @@ class CheckForce implements ObserverInterface
     protected $_responseFactory;
 
     /**
-     * CheckForce constructor.
+     * @var \Magento\Framework\App\State
+     */
+    protected $_state;
+
+    /**
+     *
+     * CheckLoginPersistentObserver constructor.
+     *
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param \Magento\Framework\UrlInterface $url
      * @param \Magento\Framework\App\ResponseFactory $responseFactory
-     * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Backend\Model\Auth\Session $adminSession
+     * @param \Magento\Framework\App\State $state
      */
     public function __construct(
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\UrlInterface $url,
         \Magento\Framework\App\ResponseFactory $responseFactory,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Backend\Model\Auth\Session $adminSession
+        \Magento\Framework\App\State $state
     )
     {
         $this->_messageManager = $messageManager;
         $this->_url = $url;
         $this->_responseFactory = $responseFactory;
-        $this->_customerSession = $customerSession;
-        $this->_adminSession = $adminSession;
+        $this->_state = $state;
+    }
+
+    /**
+     * Get area code : adminhtml or frontend
+     *
+     * @return mixed
+     */
+    public function getArea()
+    {
+        return $this->_state->getAreaCode();
     }
 
     /**
@@ -72,20 +80,27 @@ class CheckForce implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $actionName = $observer->getEvent()->getRequest()->getFullActionName();
-        /* This feature is not available if you are logged in to the back end */
-        if ($this->_adminSession->isLoggedIn() || $actionName == 'adminhtml_auth_login') {
+        $actionName = $observer->getEvent()->getRequest()->getActionName();
+        $openActions = array(
+            'create',
+            'createpost',
+            'login',
+            'loginpost',
+            'logoutsuccess',
+            'forgotpassword',
+            'forgotpasswordpost',
+            'resetpassword',
+            'resetpasswordpost',
+            'confirm',
+            'confirmation'
+        );
+        /* This feature is not available if you are logged in to the admin area */
+        if ($this->getArea() === 'adminhtml') {
             return $this;
-        }
-        /* If you are logged in already we should be happy \m/ */
-        if (!$this->_customerSession->isLoggedIn()) {
+        } else {
+            /* If you are logged in already we should be happy \m/ */
             /* Some pages should not be restricted */
-            if ($actionName == 'customer_account_create'
-                || $actionName == 'customer_account_login'
-                || $actionName == 'customer_account_createpost'
-                || $actionName == 'customer_account_loginPost'
-                || $actionName == 'customer_section_load'
-            ) {
+            if ($actionName === 'account' || in_array($actionName, $openActions)) {
                 return $this;
             } else {
                 $this->_messageManager->addWarningMessage('Kindly login to your account before proceeding.');
@@ -94,6 +109,5 @@ class CheckForce implements ObserverInterface
                 exit;
             }
         }
-        return $this;
     }
 }

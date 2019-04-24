@@ -15,6 +15,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="controller_action_predispatch">
-        <observer name="check_login_force" instance="HieuNC\ForceLogin\Observer\CheckForce"/>
+        <observer name="check_login_persistent" instance="HieuNC\ForceLogin\Observer\CheckLoginPersistentObserver"/>
     </event>
 </config>
