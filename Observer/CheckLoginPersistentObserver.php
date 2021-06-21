@@ -43,6 +43,12 @@ class CheckLoginPersistentObserver implements ObserverInterface
     protected $_state;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $_scopeConfig;
+
+
+    /**
      *
      * CheckLoginPersistentObserver constructor.
      *
@@ -55,9 +61,11 @@ class CheckLoginPersistentObserver implements ObserverInterface
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\UrlInterface $url,
         \Magento\Framework\App\ResponseFactory $responseFactory,
-        \Magento\Framework\App\State $state
+        \Magento\Framework\App\State $state,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     )
     {
+        $this->_scopeConfig = $scopeConfig;
         $this->_messageManager = $messageManager;
         $this->_url = $url;
         $this->_responseFactory = $responseFactory;
@@ -80,7 +88,7 @@ class CheckLoginPersistentObserver implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $config = $this->scopeConfig->getValue('justbetter/general/login_store_view', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $config = $this->_scopeConfig->getValue('justbetter/general/login_store_view', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         dd($config);
 
 
