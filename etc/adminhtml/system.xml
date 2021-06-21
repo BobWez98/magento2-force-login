@@ -4,14 +4,14 @@
         <tab id="justbetter" translate="label" sortOrder="10">
             <label>JustBetter</label>
         </tab>
-        <section id="helloworld" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="justbetter" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
             <label>Force login</label>
             <tab>justbetter</tab>
             <resource>HieuNC_ForceLogin::forcelogin_config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General Configuration</label>
-                <field id="store_view" translate="label" type="multiselect" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="login_store_view" translate="label" type="multiselect" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
                   <label>Enable Store View</label>
                   <source_model>Magento\Store\Model\System\Store</source_model>
               </field>

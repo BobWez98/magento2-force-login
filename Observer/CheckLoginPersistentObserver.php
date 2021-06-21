@@ -80,6 +80,10 @@ class CheckLoginPersistentObserver implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
+        $config = $this->scopeConfig->getValue('justbetter/general/login_store_view', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        dd($config);
+
+
         $actionName = $observer->getEvent()->getRequest()->getActionName();
         $openActions = array(
             'create',
